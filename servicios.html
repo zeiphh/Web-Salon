@@ -1,63 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios | La Haciendita</title>
+  <link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <header>
 
-  <img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita" width="200">
-
-  
+<header>
+  <img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
   <nav>
     <ul>
       <li><a href="index.html">Inicio</a></li>
       <li><a href="nosotros.html">Sobre Nosotros</a></li>
-      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="servicios.html" class="activo">Servicios</a></li>
       <li><a href="galeria.html">Galería</a></li>
       <li><a href="contacto.html">Contacto</a></li>
     </ul>
   </nav>
 </header>
 
-<main>
-<h1>Nuestros Servicios</h1>
+<main class="servicios-main">
 
-<h2>Renta del Salon</h2>
-  <ul>
-    <li>Capacidad hasta para 80 personas</li>
-    <li>6 horas de su evento +1 hora extra antes del evento para decorar</li>
-    <li>Mesas, sillas y manteleria blanca incluida</li>
-    <li>Area de cocina, barra y baños</li>
-    <li>Servicio de gas y enceres de baño incluidos</li>
-    <li>Area de Juegos</li>
-  </ul>
+  <h1>Nuestros Servicios</h1>
+  <p class="servicios-intro">Todo lo que necesitas para celebrar en un solo lugar.</p>
 
-<h1>Servicios Complementarios</h1>
+  <!-- ── RENTA DEL SALÓN ── -->
+  <section class="seccion-renta">
+    <div class="renta-encabezado">
+      <span class="renta-icono">🏛️</span>
+      <h2>Renta del Salón</h2>
+      <p>Nuestro paquete base incluye todo lo esencial para que tu evento sea perfecto.</p>
+    </div>
+    <ul class="renta-lista">
+      <li>Capacidad hasta para <strong>80 personas</strong></li>
+      <li><strong>6 horas</strong> de evento + 1 hora previa para decorar</li>
+      <li>Mesas, sillas y mantelería blanca incluidas</li>
+      <li>Área de cocina, barra y baños</li>
+      <li>Servicio de gas y enseres de baño incluidos</li>
+      <li>Área de juegos</li>
+    </ul>
+  </section>
 
-<h2>Decoración</h2>
-<ul>
-  <li>Caminos de mesa</li>
-  <li>Cubremanteles</li>
-  <li>Cubresillas</li>
-  <li>Caballete de Bienvenida</li>
-</ul>
+  <!-- ── SERVICIOS COMPLEMENTARIOS ── -->
+  <div class="complementarios-encabezado">
+    <h2 class="h2-complementarios">Servicios Complementarios</h2>
+    <p>Personaliza tu evento con nuestros servicios adicionales.</p>
+  </div>
 
-<h2>Musica y Sonido</h2>
-<ul>
-  <li>Bocina bluetooth y por cable</li>
-  <li>Microfonos</li>
-</ul>
+  <div class="complementarios-grid">
 
-<h2>Entretenimiento</h2>
-<ul>
-  <li>Inflables</li>
-</ul>
+    <div class="servicio-card">
+      <div class="card-icono">🎀</div>
+      <h3>Decoración</h3>
+      <ul>
+        <li>Caminos de mesa</li>
+        <li>Cubremanteles</li>
+        <li>Cubresillas</li>
+        <li>Caballete de bienvenida</li>
+      </ul>
+    </div>
 
+    <div class="servicio-card">
+      <div class="card-icono">🎵</div>
+      <h3>Música y Sonido</h3>
+      <ul>
+        <li>Bocina Bluetooth y por cable</li>
+        <li>Micrófonos</li>
+      </ul>
+    </div>
 
+    <div class="servicio-card">
+      <div class="card-icono">🎉</div>
+      <h3>Entretenimiento</h3>
+      <ul>
+        <li>Inflables</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ── CTA ── -->
+  <div class="servicios-cta">
+    <p>¿Tienes dudas o quieres conocer los precios?</p>
+    <a href="contacto.html" class="btn-cta">Contáctanos</a>
+  </div>
 
 </main>
+
+<footer>
+  <div class="footer-contenido">
+    <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
+    <p>Morelia, Michoacán, México &nbsp;|&nbsp; Tel: <a href="tel:4431716221">443 171 6221</a></p>
+    <div class="footer-redes">
+      <a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank" aria-label="Contáctanos por WhatsApp">
+  <span>WhatsApp</span>
+</a>
+
 </body>
 </html>

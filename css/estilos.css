@@ -1,0 +1,1281 @@
+/* =============================================
+   ESTILOS PARA "SALÓN LA HACIENDITA"
+   Diseño: Elegante, cálido, estilo hacienda mexicana
+   ============================================= */
+
+/* --- FUENTES DE GOOGLE ---
+   Se cargan antes que todo para evitar parpadeo de texto.
+   Playfair Display: elegante, con serifa, perfecta para títulos.
+   Lato: limpia y moderna, perfecta para texto normal. */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+
+/* --- VARIABLES DE COLOR ---
+   Al definir colores aquí como variables, si decides cambiar
+   un color solo lo modificas en este lugar y se actualiza en todo el sitio. */
+:root {
+  --color-fondo: #fdf6ec;
+  --color-primario: #5c3317;
+  --color-secundario: #9e6b2e;
+  --color-dorado: #c9973a;
+  --color-dorado-claro: rgba(201, 151, 58, 0.15);
+  --color-texto: #3a2410;
+  --color-texto-claro: #6b4d2e;
+  --color-blanco: #fffdf8;
+  --sombra-suave: 0 4px 20px rgba(92, 51, 23, 0.12);
+  --sombra-hover: 0 8px 30px rgba(92, 51, 23, 0.2);
+  --fuente-titulo: 'Playfair Display', Georgia, serif;
+  --fuente-cuerpo: 'Lato', 'Trebuchet MS', sans-serif;
+  --radio-borde: 8px;
+  --transicion: 0.3s ease;
+}
+
+
+/* =============================================
+   RESET Y BASE
+   Elimina los estilos predeterminados del navegador para que
+   todo se vea igual en Chrome, Firefox, Safari, etc.
+   ============================================= */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth; /* El scroll de la página es suave al navegar a secciones */
+}
+
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-cuerpo);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+  /* Patrón de fondo muy sutil para dar textura */
+  background-image: radial-gradient(circle, rgba(201,151,58,0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+
+/* =============================================
+   HEADER (ENCABEZADO)
+   Barra de navegación fija en la parte superior.
+   ============================================= */
+header {
+  background-color: var(--color-primario);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.35);
+  position: sticky;   /* Se queda visible aunque hagas scroll hacia abajo */
+  top: 0;
+  z-index: 100;       /* Asegura que quede por encima de todo el contenido */
+  /* Línea dorada decorativa en la parte inferior del header */
+  border-bottom: 2px solid var(--color-dorado);
+}
+
+/* Logo del salón */
+header img {
+  height: 90px;
+  width: auto;
+  border-radius: var(--radio-borde);
+  border: 2px solid var(--color-dorado);
+  object-fit: cover;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+
+header img:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(201, 151, 58, 0.5);
+}
+
+/* Lista del menú de navegación */
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+}
+
+/* Cada enlace del menú */
+header nav ul li a {
+  color: rgba(255, 253, 248, 0.88);
+  text-decoration: none;
+  font-family: var(--fuente-cuerpo);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  transition: all var(--transicion);
+  display: block;
+}
+
+/* Efecto al pasar el cursor */
+header nav ul li a:hover {
+  color: var(--color-dorado);
+  border-color: rgba(201, 151, 58, 0.5);
+  background-color: var(--color-dorado-claro);
+}
+
+/* Enlace de la página donde estás actualmente */
+header nav ul li a.activo {
+  color: var(--color-dorado);
+  border-color: var(--color-dorado);
+  background-color: var(--color-dorado-claro);
+}
+
+
+/* =============================================
+   MAIN (CONTENIDO PRINCIPAL)
+   El área central con el texto e información del salón.
+   ============================================= */
+main {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 70px 30px 90px;
+}
+
+/* Título principal H1 */
+main h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.8rem, 5vw, 3rem); /* clamp = tamaño mínimo, flexible, máximo */
+  color: var(--color-primario);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  /* Línea dorada decorativa debajo del título */
+  border-bottom: 2px solid var(--color-dorado);
+  animation: fadeInDown 0.7s ease forwards;
+}
+
+/* Símbolo ornamental encima del título */
+main h1::before {
+  content: "✦";
+  display: block;
+  color: var(--color-dorado);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+/* Subtítulo H2 */
+main h2 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  color: var(--color-secundario);
+  font-weight: 600;
+  margin-top: 60px;
+  margin-bottom: 24px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Separador dorado elegante debajo del H2 */
+main h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-dorado);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* Párrafos */
+main p {
+  font-size: 1.05rem;
+  color: var(--color-texto-claro);
+  margin-bottom: 18px;
+  text-align: center;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 0.9s ease 0.2s both;
+}
+
+
+/* =============================================
+   TARJETAS "¿POR QUÉ ELEGIRNOS?"
+   El <nav> con <ul> dentro de <main> que lista las ventajas.
+   ============================================= */
+main nav ul {
+  list-style: none;
+  display: grid;
+  /* Crea columnas automáticas: mínimo 190px, máximo igual espacio disponible */
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+  padding: 0;
+  animation: fadeIn 1s ease 0.4s both;
+}
+
+main nav ul li {
+  background-color: var(--color-blanco);
+  border: 1px solid rgba(201, 151, 58, 0.25);
+  border-left: 4px solid var(--color-dorado);
+  border-radius: var(--radio-borde);
+  padding: 16px 18px 16px 44px;
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  font-weight: 400;
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  position: relative;
+  cursor: default;
+}
+
+/* Rombo dorado decorativo antes de cada item */
+main nav ul li::before {
+  content: "◆";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-dorado);
+  font-size: 0.7rem;
+}
+
+/* Efecto al pasar el cursor sobre cada tarjeta */
+main nav ul li:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-hover);
+}
+
+
+/* =============================================
+   FOOTER (PIE DE PÁGINA)
+   ============================================= */
+footer {
+  background-color: var(--color-primario);
+  border-top: 3px solid var(--color-dorado);
+  padding: 36px 20px;
+  margin-top: 40px;
+}
+
+.footer-contenido {
+  max-width: 880px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+footer p {
+  color: rgba(255, 253, 248, 0.75);
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+}
+
+/* El enlace del teléfono en el footer */
+footer p a {
+  color: var(--color-dorado);
+  text-decoration: none;
+  transition: opacity var(--transicion);
+}
+
+footer p a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Sección de redes sociales */
+.footer-redes {
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-redes a {
+  color: var(--color-dorado);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border: 1px solid rgba(201, 151, 58, 0.4);
+  border-radius: 20px;   /* Borde redondeado como una píldora */
+  transition: all var(--transicion);
+}
+
+.footer-redes a:hover {
+  background-color: var(--color-dorado);
+  color: var(--color-primario);
+  border-color: var(--color-dorado);
+}
+
+
+/* =============================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   Se muestra fijo en la esquina inferior derecha de la pantalla.
+   ============================================= */
+.whatsapp-flotante {
+  position: fixed;      /* Fijo en la pantalla, no se mueve con el scroll */
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;         /* Siempre visible por encima de todo */
+
+  background-color: #25D366;   /* Verde oficial de WhatsApp */
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--fuente-cuerpo);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 50px;   /* Completamente redondeado */
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  transition: transform var(--transicion), box-shadow var(--transicion), background-color var(--transicion);
+
+  /* Pulso suave para llamar la atención */
+  animation: pulso 3s ease-in-out infinite;
+}
+
+/* Ícono SVG de WhatsApp (sin necesidad de librerías externas) */
+.whatsapp-flotante::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.whatsapp-flotante:hover {
+  background-color: #1ebe5d;
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.55);
+  animation: none;  /* Detiene el pulso al hacer hover */
+}
+
+
+/* =============================================
+   ANIMACIONES
+   ============================================= */
+
+/* Aparece deslizándose desde arriba */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aparece con fundido */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Pulso sutil para el botón de WhatsApp */
+@keyframes pulso {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    box-shadow: 0 4px 30px rgba(37, 211, 102, 0.75), 0 0 0 8px rgba(37, 211, 102, 0.1);
+  }
+}
+
+
+/* =============================================
+   DISEÑO RESPONSIVO
+   Ajusta el diseño para diferentes tamaños de pantalla.
+   ============================================= */
+
+/* Tabletas (menos de 768px) */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px 20px;
+    position: static;   /* En móvil no se queda pegado arriba (ocupa espacio) */
+  }
+
+  header nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  header nav ul li a {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  main {
+    padding: 40px 20px 60px;
+  }
+
+  main nav ul {
+    grid-template-columns: 1fr;  /* Una columna en pantallas pequeñas */
+  }
+
+  .whatsapp-flotante {
+    bottom: 20px;
+    right: 16px;
+    padding: 10px 16px;
+    font-size: 0.78rem;
+  }
+}
+
+/* Celulares pequeños (menos de 480px) */
+@media (max-width: 480px) {
+  header nav ul li a {
+    font-size: 0.72rem;
+    padding: 5px 8px;
+  }
+}
+
+
+/* =============================================
+   PÁGINA DE SERVICIOS
+   ============================================= */
+
+/* El main de servicios tiene un ancho un poco mayor para la cuadrícula */
+.servicios-main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 70px 30px 90px;
+}
+
+.servicios-main h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--color-primario);
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--color-dorado);
+  animation: fadeInDown 0.7s ease forwards;
+}
+
+.servicios-main h1::before {
+  content: "✦";
+  display: block;
+  color: var(--color-dorado);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+/* Subtítulo introductorio */
+.servicios-intro {
+  text-align: center;
+  color: var(--color-texto-claro);
+  font-size: 1.05rem;
+  margin-top: 8px;
+  margin-bottom: 50px;
+  animation: fadeIn 0.9s ease 0.2s both;
+}
+
+/* ── SECCIÓN RENTA DEL SALÓN ──
+   Caja destacada con fondo oscuro, es el servicio principal */
+.seccion-renta {
+  background-color: var(--color-primario);
+  border-radius: 12px;
+  padding: 44px 50px;
+  margin-bottom: 64px;
+  box-shadow: var(--sombra-hover);
+  animation: fadeIn 0.9s ease 0.3s both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Detalle decorativo: círculo dorado semitransparente en la esquina */
+.seccion-renta::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,151,58,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.renta-encabezado {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.renta-icono {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.renta-encabezado h2 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--color-dorado);
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-style: normal;   /* Sin cursiva en esta sección para dar fuerza */
+}
+
+/* Sobrescribimos el ::after del h2 general para que no aparezca aquí */
+.seccion-renta h2::after {
+  display: none;
+}
+
+.renta-encabezado p {
+  color: rgba(255, 253, 248, 0.75);
+  font-size: 0.97rem;
+  margin: 0;
+}
+
+/* Lista de ítems de la renta */
+.renta-lista {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  padding: 0;
+}
+
+.renta-lista li {
+  background-color: rgba(255, 253, 248, 0.07);
+  border: 1px solid rgba(201, 151, 58, 0.3);
+  border-left: 4px solid var(--color-dorado);
+  border-radius: 6px;
+  padding: 14px 16px 14px 42px;
+  color: var(--color-blanco);
+  font-size: 0.95rem;
+  position: relative;
+  transition: background-color var(--transicion);
+}
+
+.renta-lista li:hover {
+  background-color: rgba(201, 151, 58, 0.12);
+}
+
+.renta-lista li::before {
+  content: "✓";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-dorado);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.renta-lista li strong {
+  color: var(--color-dorado);
+}
+
+
+/* ── ENCABEZADO COMPLEMENTARIOS ── */
+.complementarios-encabezado {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeIn 0.9s ease 0.4s both;
+}
+
+.h2-complementarios {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  color: var(--color-secundario);
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+/* Línea dorada centrada debajo */
+.h2-complementarios::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-dorado);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+.complementarios-encabezado p {
+  color: var(--color-texto-claro);
+  font-size: 0.97rem;
+  margin-top: 10px;
+}
+
+/* ── CUADRÍCULA DE TARJETAS COMPLEMENTARIAS ── */
+.complementarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  margin-bottom: 60px;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+.servicio-card {
+  background-color: var(--color-blanco);
+  border: 1px solid rgba(201, 151, 58, 0.25);
+  border-top: 4px solid var(--color-dorado);   /* Línea dorada en la parte superior */
+  border-radius: var(--radio-borde);
+  padding: 30px 24px 26px;
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  text-align: center;
+}
+
+.servicio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-hover);
+}
+
+.card-icono {
+  font-size: 2.4rem;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.servicio-card h3 {
+  font-family: var(--fuente-titulo);
+  font-size: 1.2rem;
+  color: var(--color-primario);
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(201, 151, 58, 0.25);
+}
+
+.servicio-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.servicio-card ul li {
+  font-size: 0.93rem;
+  color: var(--color-texto-claro);
+  padding: 7px 0 7px 22px;
+  border-bottom: 1px solid rgba(201, 151, 58, 0.1);
+  position: relative;
+}
+
+.servicio-card ul li:last-child {
+  border-bottom: none;
+}
+
+.servicio-card ul li::before {
+  content: "◆";
+  position: absolute;
+  left: 0;
+  color: var(--color-dorado);
+  font-size: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+/* ── LLAMADA A LA ACCIÓN (CTA) ──
+   Sección final que invita al usuario a contactar */
+.servicios-cta {
+  text-align: center;
+  padding: 44px 30px;
+  background-color: var(--color-blanco);
+  border: 1px solid rgba(201, 151, 58, 0.3);
+  border-radius: 12px;
+  box-shadow: var(--sombra-suave);
+  animation: fadeIn 1s ease 0.6s both;
+}
+
+.servicios-cta p {
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  color: var(--color-primario);
+  font-style: italic;
+  margin-bottom: 22px;
+}
+
+/* Botón dorado de llamada a la acción */
+.btn-cta {
+  display: inline-block;
+  background-color: var(--color-dorado);
+  color: var(--color-primario);
+  text-decoration: none;
+  font-family: var(--fuente-cuerpo);
+  font-weight: 700;
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  border-radius: 4px;
+  border: 2px solid var(--color-dorado);
+  transition: all var(--transicion);
+  box-shadow: 0 4px 14px rgba(201, 151, 58, 0.3);
+}
+
+.btn-cta:hover {
+  background-color: transparent;
+  color: var(--color-dorado);
+  box-shadow: 0 6px 20px rgba(201, 151, 58, 0.4);
+  transform: translateY(-2px);
+}
+
+
+/* ── RESPONSIVO PARA SERVICIOS ── */
+@media (max-width: 768px) {
+  .servicios-main {
+    padding: 40px 20px 60px;
+  }
+
+  .seccion-renta {
+    padding: 30px 24px;
+  }
+
+  .renta-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .complementarios-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =============================================
+   PÁGINA DE GALERÍA
+   ============================================= */
+
+.galeria-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 70px 30px 90px;
+}
+
+.galeria-main h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--color-primario);
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--color-dorado);
+  animation: fadeInDown 0.7s ease forwards;
+}
+
+.galeria-main h1::before {
+  content: "✦";
+  display: block;
+  color: var(--color-dorado);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.galeria-intro {
+  text-align: center;
+  color: var(--color-texto-claro);
+  font-size: 1.05rem;
+  margin-top: 8px;
+  margin-bottom: 48px;
+  animation: fadeIn 0.9s ease 0.2s both;
+}
+
+/* ── GRID DE FOTOS ──
+   Columns CSS crea un efecto tipo "mampostería" (masonry):
+   las fotos se apilan en columnas como si fueran ladrillos,
+   respetando la altura natural de cada imagen. */
+.galeria-grid {
+  columns: 3 280px;
+  column-gap: 16px;
+  animation: fadeIn 1s ease 0.3s both;
+}
+
+.galeria-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  background-color: var(--color-primario);
+}
+
+.galeria-item:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--sombra-hover);
+}
+
+.galeria-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.galeria-item:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.75);
+}
+
+.galeria-item figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(92,51,23,0.92) 0%, transparent 100%);
+  color: var(--color-blanco);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 28px 16px 14px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--transicion), transform var(--transicion);
+}
+
+.galeria-item:hover figcaption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.galeria-item::after {
+  content: "⊕";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  color: rgba(255,255,255,0.85);
+  font-size: 1.4rem;
+  opacity: 0;
+  transition: opacity var(--transicion);
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.galeria-item:hover::after {
+  opacity: 1;
+}
+
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 10, 5, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.activo {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox-contenido {
+  max-width: 88vw;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: fadeIn 0.25s ease;
+}
+
+.lightbox-contenido img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  border: 1px solid rgba(201,151,58,0.3);
+}
+
+.lightbox-caption {
+  color: rgba(255,253,248,0.8);
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  font-style: italic;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(201,151,58,0.15);
+  border: 1px solid rgba(201,151,58,0.4);
+  color: var(--color-dorado);
+  font-size: 2.8rem;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transicion), transform var(--transicion);
+  padding: 0;
+}
+
+.lightbox-prev { left: 20px; }
+.lightbox-next { right: 20px; }
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background-color: rgba(201,151,58,0.35);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-cerrar {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: none;
+  border: none;
+  color: rgba(255,253,248,0.7);
+  font-size: 2.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color var(--transicion), transform var(--transicion);
+  padding: 4px 8px;
+}
+
+.lightbox-cerrar:hover {
+  color: var(--color-dorado);
+  transform: scale(1.2) rotate(90deg);
+}
+
+.lightbox-contador {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,253,248,0.5);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+/* ── CTA GALERÍA ── */
+.galeria-cta {
+  text-align: center;
+  padding: 50px 30px 10px;
+  animation: fadeIn 1s ease 0.5s both;
+}
+
+.galeria-cta p {
+  font-family: var(--fuente-titulo);
+  font-size: 1.35rem;
+  color: var(--color-primario);
+  font-style: italic;
+  margin-bottom: 22px;
+}
+
+
+/* ── RESPONSIVO GALERÍA ── */
+@media (max-width: 768px) {
+  .galeria-main {
+    padding: 40px 16px 60px;
+  }
+
+  .galeria-grid {
+    columns: 2 160px;
+    column-gap: 10px;
+  }
+
+  .galeria-item {
+    margin-bottom: 10px;
+  }
+
+  .lightbox-prev { left: 8px; }
+  .lightbox-next { right: 8px; }
+
+  .lightbox-prev,
+  .lightbox-next {
+    width: 40px;
+    height: 40px;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .galeria-grid {
+    columns: 1;
+  }
+}
+
+
+/* =============================================
+   PÁGINA DE CONTACTO
+   ============================================= */
+
+.contacto-main {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 70px 30px 90px;
+}
+
+.contacto-main h1 {
+  font-family: var(--fuente-titulo);
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--color-primario);
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 24px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--color-dorado);
+  animation: fadeInDown 0.7s ease forwards;
+}
+
+.contacto-main h1::before {
+  content: "✦";
+  display: block;
+  color: var(--color-dorado);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.contacto-intro {
+  text-align: center;
+  color: var(--color-texto-claro);
+  font-size: 1.05rem;
+  margin-top: 8px;
+  margin-bottom: 52px;
+  animation: fadeIn 0.9s ease 0.2s both;
+}
+
+/* ── DOS COLUMNAS: info | mapa ── */
+.contacto-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;   /* Mapa ligeramente más ancho */
+  gap: 36px;
+  align-items: start;
+  animation: fadeIn 1s ease 0.3s both;
+}
+
+/* ── COLUMNA IZQUIERDA: tarjetas de contacto ── */
+.contacto-info {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Tarjeta base de cada método de contacto */
+.contacto-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background-color: var(--color-blanco);
+  border: 1px solid rgba(201, 151, 58, 0.22);
+  border-left: 4px solid var(--color-dorado);
+  border-radius: var(--radio-borde);
+  padding: 18px 22px;
+  text-decoration: none;
+  color: var(--color-texto);
+  box-shadow: var(--sombra-suave);
+  transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+}
+
+.contacto-card:hover {
+  transform: translateX(5px);        /* Se desliza a la derecha al hacer hover */
+  box-shadow: var(--sombra-hover);
+  border-left-color: var(--color-secundario);
+}
+
+/* Variante destacada para WhatsApp */
+.contacto-card--whatsapp {
+  background-color: var(--color-primario);
+  border-left-color: #25D366;
+  border-color: rgba(37, 211, 102, 0.3);
+}
+
+.contacto-card--whatsapp .contacto-card-etiqueta {
+  color: #25D366;
+}
+
+.contacto-card--whatsapp .contacto-card-valor,
+.contacto-card--whatsapp .contacto-card-accion {
+  color: rgba(255, 253, 248, 0.9);
+}
+
+.contacto-card--whatsapp .contacto-card-icono {
+  color: #25D366;
+  background-color: rgba(37, 211, 102, 0.12);
+  border-color: rgba(37, 211, 102, 0.25);
+}
+
+.contacto-card--whatsapp:hover {
+  border-left-color: #25D366;
+  background-color: #4a2910;
+}
+
+/* Círculo con el ícono */
+.contacto-card-icono {
+  flex-shrink: 0;                     /* No se encoge aunque haya poco espacio */
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--color-dorado-claro);
+  border: 1px solid rgba(201, 151, 58, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-dorado);
+}
+
+.contacto-card-icono svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Textos dentro de cada tarjeta */
+.contacto-card-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contacto-card-etiqueta {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-dorado);
+}
+
+.contacto-card-valor {
+  font-size: 0.97rem;
+  font-weight: 400;
+  color: var(--color-texto);
+  line-height: 1.4;
+}
+
+.contacto-card-accion {
+  font-size: 0.78rem;
+  color: var(--color-texto-claro);
+  margin-top: 4px;
+  transition: color var(--transicion);
+}
+
+.contacto-card:hover .contacto-card-accion {
+  color: var(--color-dorado);
+}
+
+
+/* ── COLUMNA DERECHA: mapa ── */
+.contacto-mapa-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background-color: var(--color-blanco);
+  border: 1px solid rgba(201, 151, 58, 0.22);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--sombra-suave);
+}
+
+/* Encabezado encima del mapa */
+.mapa-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(201, 151, 58, 0.2);
+  background-color: var(--color-fondo);
+}
+
+.mapa-icono {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.mapa-encabezado strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--color-primario);
+  font-weight: 700;
+}
+
+.mapa-encabezado p {
+  font-size: 0.82rem;
+  color: var(--color-texto-claro);
+  margin: 0;
+  text-align: left;
+}
+
+/* Contenedor del iframe del mapa */
+.mapa-contenedor {
+  width: 100%;
+  height: 360px;              /* Altura fija para el mapa */
+}
+
+.mapa-contenedor iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Enlace "Abrir en Google Maps" */
+.mapa-enlace {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  background-color: var(--color-fondo);
+  border-top: 1px solid rgba(201, 151, 58, 0.2);
+  color: var(--color-secundario);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+.mapa-enlace:hover {
+  background-color: var(--color-dorado);
+  color: var(--color-primario);
+}
+
+
+/* ── RESPONSIVO CONTACTO ── */
+@media (max-width: 820px) {
+  .contacto-layout {
+    grid-template-columns: 1fr;   /* Una columna en móvil */
+  }
+
+  .mapa-contenedor {
+    height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contacto-main {
+    padding: 40px 20px 60px;
+  }
+}
