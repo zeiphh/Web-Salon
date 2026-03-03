@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar | La Haciendita</title>
+  <link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<header>
+  <img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="nosotros.html">Sobre Nosotros</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="alta.html">Alta</a></li>
+      <li><a href="modificar.html">Modificar</a></li>
+      <li><a href="eliminar.html" class="activo">Eliminar</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="form-main">
+  <h1>Eliminar producto o servicio</h1>
+
+  <form class="formulario" action="#" method="post">
+    <label for="id">ID a eliminar:</label>
+    <input type="number" id="id" name="id" min="1" required>
+
+    <p class="aviso">Esta acción es definitiva. Verifica el ID antes de enviar.</p>
+
+    <button type="submit" class="btn-peligro">Eliminar</button>
+  </form>
+</main>
+
+<footer>
+  <div class="footer-contenido">
+    <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
