@@ -1277,5 +1277,63 @@ footer p a:hover {
 @media (max-width: 768px) {
   .contacto-main {
     padding: 40px 20px 60px;
-  }
+/* ===== Formularios ===== */
+
+.form-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.formulario {
+  background: #f4f4f4;
+  padding: 18px;
+  border-radius: 10px;
+}
+
+.formulario label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.formulario input,
+.formulario textarea,
+.formulario select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.formulario textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.formulario button {
+  margin-top: 16px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secundario {
+  margin-left: 10px;
+}
+
+.btn-peligro {
+  background: #b00020;
+  color: #fff;
+}
+
+.aviso {
+  margin-top: 12px;
+  padding: 10px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  border-radius: 8px;
 }
