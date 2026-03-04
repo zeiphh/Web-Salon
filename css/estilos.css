@@ -1252,12 +1252,10 @@ footer p a:hover {
   background-color: var(--color-dorado);
   color: var(--color-primario);
 }
-
-
 /* ── RESPONSIVO CONTACTO ── */
 @media (max-width: 820px) {
   .contacto-layout {
-    grid-template-columns: 1fr;   /* Una columna en móvil */
+    grid-template-columns: 1fr;
   }
 
   .mapa-contenedor {
@@ -1268,6 +1266,9 @@ footer p a:hover {
 @media (max-width: 768px) {
   .contacto-main {
     padding: 40px 20px 60px;
+  }
+} /* <-- ESTA LLAVE ES LA QUE TE FALTABA */
+
 /* ===== Formularios ===== */
 
 .form-main {
