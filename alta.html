@@ -1,60 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alta | La Haciendita</title>
-  <link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
-  <link rel="stylesheet" href="css/estilos.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alta | La Haciendita</title>
+<link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
+<link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
 <header>
-  <img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
-  <nav>
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="nosotros.html">Sobre Nosotros</a></li>
-      <li><a href="servicios.html">Servicios</a></li>
-      <li><a href="galeria.html">Galería</a></li>
-      <li><a href="contacto.html">Contacto</a></li>
-      <li><a href="alta.html" class="activo">Alta</a></li>
-      <li><a href="modificar.html">Modificar</a></li>
-      <li><a href="eliminar.html">Eliminar</a></li>
-    </ul>
-  </nav>
+<img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
+
+<nav>
+<ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="nosotros.html">Sobre Nosotros</a></li>
+<li><a href="servicios.html">Servicios</a></li>
+<li><a href="galeria.html">Galería</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+<li><a href="alta.html" class="activo">Alta</a></li>
+<li><a href="modificar.html">Modificar</a></li>
+<li><a href="eliminar.html">Eliminar</a></li>
+</ul>
+</nav>
 </header>
 
 <main class="form-main">
-  <h1>Alta de producto o servicio</h1>
 
-  <form class="formulario" action="#" method="post">
-    <label for="tipo">Tipo:</label>
-    <select id="tipo" name="tipo" required>
-      <option value="">Selecciona una opción</option>
-      <option value="producto">Producto</option>
-      <option value="servicio">Servicio</option>
-    </select>
+<h1>Registrar producto o servicio</h1>
 
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" required maxlength="60">
+<form class="formulario" action="#" method="post">
 
-    <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" name="descripcion" required maxlength="250"></textarea>
+<label for="nombre">Nombre:</label>
+<input type="text" id="nombre" name="nombre" required maxlength="60">
 
-    <label for="precio">Precio (MXN):</label>
-    <input type="number" id="precio" name="precio" min="0" step="0.01" required>
+<label for="descripcion">Descripción:</label>
+<textarea id="descripcion" name="descripcion" required maxlength="250"></textarea>
 
-    <button type="submit">Guardar</button>
-    <button type="reset" class="btn-secundario">Limpiar</button>
-  </form>
+<label for="precio">Precio (MXN):</label>
+<input type="number" id="precio" name="precio" min="0" step="0.01" required>
+
+<button type="submit">Guardar</button>
+
+</form>
+
 </main>
 
 <footer>
-  <div class="footer-contenido">
-    <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
-  </div>
+<div class="footer-contenido">
+<p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
+<p>Morelia, Michoacán, México | Tel: <a href="tel:4431716221">443 171 6221</a></p>
+
+<div class="footer-redes">
+<a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
+</div>
+
+</div>
 </footer>
+
+<a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank">
+<span>WhatsApp</span>
+</a>
 
 </body>
 </html>
