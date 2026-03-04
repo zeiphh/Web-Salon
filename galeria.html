@@ -18,6 +18,9 @@
       <li><a href="servicios.html">Servicios</a></li>
       <li><a href="galeria.html" class="activo">Galería</a></li>
       <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="alta.html">Alta</a></li>
+      <li><a href="modificar.html">Modificar</a></li>
+      <li><a href="eliminar.html">Eliminar</a></li>
     </ul>
   </nav>
 </header>
@@ -27,51 +30,48 @@
   <h1>Nuestra Galería</h1>
   <p class="galeria-intro">Conoce nuestro espacio y los momentos especiales que hemos celebrado juntos.</p>
 
-  <!-- GRID DE FOTOS -->
-  <!-- Cada <figure> tiene data-index para que el lightbox sepa cuál foto es -->
   <div class="galeria-grid">
 
-    <figure class="galeria-item" data-index="0" tabindex="0" role="button" aria-label="Ver foto 1">
+    <figure class="galeria-item" data-index="0" tabindex="0" aria-label="Ver foto 1">
       <img src="imagenes/1.jpeg" alt="Evento en La Haciendita" loading="lazy">
       <figcaption>Evento en La Haciendita</figcaption>
     </figure>
 
-    <figure class="galeria-item" data-index="1" tabindex="0" role="button" aria-label="Ver foto 2">
+    <figure class="galeria-item" data-index="1" tabindex="0" aria-label="Ver foto 2">
       <img src="imagenes/2.jpeg" alt="Patio con Inflable" loading="lazy">
       <figcaption>Patio con Inflable</figcaption>
     </figure>
 
-    <figure class="galeria-item" data-index="2" tabindex="0" role="button" aria-label="Ver foto 3">
-      <img src="imagenes/3.jpeg" alt="Salón la Haciendita" loading="lazy">
-      <figcaption>Salón la Haciendita</figcaption>
+    <figure class="galeria-item" data-index="2" tabindex="0" aria-label="Ver foto 3">
+      <img src="imagenes/3.jpeg" alt="Salón La Haciendita" loading="lazy">
+      <figcaption>Salón La Haciendita</figcaption>
     </figure>
 
-    <figure class="galeria-item" data-index="3" tabindex="0" role="button" aria-label="Ver foto 4">
+    <figure class="galeria-item" data-index="3" tabindex="0" aria-label="Ver foto 4">
       <img src="imagenes/4.jpeg" alt="Área de Juegos" loading="lazy">
       <figcaption>Área de Juegos</figcaption>
     </figure>
 
-    <figure class="galeria-item" data-index="4" tabindex="0" role="button" aria-label="Ver foto 5">
+    <figure class="galeria-item" data-index="4" tabindex="0" aria-label="Ver foto 5">
       <img src="imagenes/5.jpeg" alt="Evento con Decoraciones" loading="lazy">
       <figcaption>Evento con Decoraciones</figcaption>
     </figure>
 
   </div>
 
-  <!-- LIGHTBOX (pantalla completa al hacer clic en una foto) -->
-  <!-- Empieza oculto. JavaScript lo hace visible cuando el usuario hace clic -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de foto">
     <button class="lightbox-cerrar" id="lb-cerrar" aria-label="Cerrar">&times;</button>
     <button class="lightbox-prev" id="lb-prev" aria-label="Foto anterior">&#8249;</button>
+
     <div class="lightbox-contenido">
-      <img src="" alt="" id="lb-imagen">
+      <img src="imagenes/1.jpeg" alt="Vista previa" id="lb-imagen">
       <p class="lightbox-caption" id="lb-caption"></p>
     </div>
+
     <button class="lightbox-next" id="lb-next" aria-label="Siguiente foto">&#8250;</button>
     <div class="lightbox-contador" id="lb-contador"></div>
   </div>
 
-  <!-- CTA al final -->
   <div class="galeria-cta">
     <p>¿Te gustó lo que viste? ¡Reserva tu fecha!</p>
     <a href="contacto.html" class="btn-cta">Contáctanos</a>
@@ -94,11 +94,11 @@
 </a>
 
 <script>
-  // ── LIGHTBOX ──────────────────────────────────────────────────
-  // Recopilamos todos los datos de las fotos en un array
-  const fotos = Array.from(document.querySelectorAll('.galeria-item')).map(item => ({
-    src: item.querySelector('img').src,
-    alt: item.querySelector('img').alt,
+  const items = Array.from(document.querySelectorAll('.galeria-item'));
+
+  const fotos = items.map(item => ({
+    src: item.querySelector('img').getAttribute('src'),
+    alt: item.querySelector('img').getAttribute('alt'),
     caption: item.querySelector('figcaption').textContent
   }));
 
@@ -108,37 +108,31 @@
   const lbContador = document.getElementById('lb-contador');
   let indiceActual = 0;
 
-  // Función que abre el lightbox mostrando la foto del índice dado
   function abrirLightbox(index) {
     indiceActual = index;
-    lbImagen.src        = fotos[index].src;
-    lbImagen.alt        = fotos[index].alt;
+    lbImagen.src = fotos[index].src;
+    lbImagen.alt = fotos[index].alt;
     lbCaption.textContent = fotos[index].caption;
     lbContador.textContent = `${index + 1} / ${fotos.length}`;
     lightbox.classList.add('activo');
-    document.body.style.overflow = 'hidden'; // Bloquea el scroll de fondo
+    document.body.style.overflow = 'hidden';
   }
 
-  // Función que cierra el lightbox
   function cerrarLightbox() {
     lightbox.classList.remove('activo');
     document.body.style.overflow = '';
   }
 
-  // Navega a la foto anterior (con vuelta al final si está en la primera)
   function irAnterior() {
     abrirLightbox((indiceActual - 1 + fotos.length) % fotos.length);
   }
 
-  // Navega a la siguiente foto (con vuelta al inicio si está en la última)
   function irSiguiente() {
     abrirLightbox((indiceActual + 1) % fotos.length);
   }
 
-  // Asignamos eventos de clic a cada foto del grid
-  document.querySelectorAll('.galeria-item').forEach(item => {
+  items.forEach(item => {
     item.addEventListener('click', () => abrirLightbox(Number(item.dataset.index)));
-    // Accesibilidad: también se puede abrir con teclado (Enter o Espacio)
     item.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') abrirLightbox(Number(item.dataset.index));
     });
@@ -148,12 +142,10 @@
   document.getElementById('lb-prev').addEventListener('click', irAnterior);
   document.getElementById('lb-next').addEventListener('click', irSiguiente);
 
-  // Cerrar al hacer clic en el fondo oscuro (fuera de la imagen)
   lightbox.addEventListener('click', e => {
     if (e.target === lightbox) cerrarLightbox();
   });
 
-  // Navegar con las teclas del teclado
   document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('activo')) return;
     if (e.key === 'ArrowLeft')  irAnterior();
