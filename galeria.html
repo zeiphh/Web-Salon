@@ -7,6 +7,7 @@
   <link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
+
 <body>
 
 <header>
@@ -82,17 +83,18 @@
 <footer>
   <div class="footer-contenido">
     <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
-    <p>Morelia, Michoacán, México &nbsp;|&nbsp; Tel: <a href="tel:4431716221">443 171 6221</a></p>
+    <p>Morelia, Michoacán, México | Tel: <a href="tel:4431716221">443 171 6221</a></p>
+
     <div class="footer-redes">
       <a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
     </div>
   </div>
+
   <p>
-    </a>
     <img src="imagenes/css.png" alt="Validado CSS">
-    </a>
     <img src="imagenes/html.png" alt="Validado HTML">
-</p>
+  </p>
+
 </footer>
 
 <a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank" aria-label="Contáctanos por WhatsApp">
@@ -100,64 +102,69 @@
 </a>
 
 <script>
-  const items = Array.from(document.querySelectorAll('.galeria-item'));
+const items = Array.from(document.querySelectorAll('.galeria-item'));
 
-  const fotos = items.map(item => ({
-    src: item.querySelector('img').getAttribute('src'),
-    alt: item.querySelector('img').getAttribute('alt'),
-    caption: item.querySelector('figcaption').textContent
-  }));
+const fotos = items.map(item => ({
+  src: item.querySelector('img').getAttribute('src'),
+  alt: item.querySelector('img').getAttribute('alt'),
+  caption: item.querySelector('figcaption').textContent
+}));
 
-  const lightbox   = document.getElementById('lightbox');
-  const lbImagen   = document.getElementById('lb-imagen');
-  const lbCaption  = document.getElementById('lb-caption');
-  const lbContador = document.getElementById('lb-contador');
-  let indiceActual = 0;
+const lightbox = document.getElementById('lightbox');
+const lbImagen = document.getElementById('lb-imagen');
+const lbCaption = document.getElementById('lb-caption');
+const lbContador = document.getElementById('lb-contador');
 
-  function abrirLightbox(index) {
-    indiceActual = index;
-    lbImagen.src = fotos[index].src;
-    lbImagen.alt = fotos[index].alt;
-    lbCaption.textContent = fotos[index].caption;
-    lbContador.textContent = `${index + 1} / ${fotos.length}`;
-    lightbox.classList.add('activo');
-    document.body.style.overflow = 'hidden';
-  }
+let indiceActual = 0;
 
-  function cerrarLightbox() {
-    lightbox.classList.remove('activo');
-    document.body.style.overflow = '';
-  }
+function abrirLightbox(index) {
+  indiceActual = index;
+  lbImagen.src = fotos[index].src;
+  lbImagen.alt = fotos[index].alt;
+  lbCaption.textContent = fotos[index].caption;
+  lbContador.textContent = `${index + 1} / ${fotos.length}`;
+  lightbox.classList.add('activo');
+  document.body.style.overflow = 'hidden';
+}
 
-  function irAnterior() {
-    abrirLightbox((indiceActual - 1 + fotos.length) % fotos.length);
-  }
+function cerrarLightbox() {
+  lightbox.classList.remove('activo');
+  document.body.style.overflow = '';
+}
 
-  function irSiguiente() {
-    abrirLightbox((indiceActual + 1) % fotos.length);
-  }
+function irAnterior() {
+  abrirLightbox((indiceActual - 1 + fotos.length) % fotos.length);
+}
 
-  items.forEach(item => {
-    item.addEventListener('click', () => abrirLightbox(Number(item.dataset.index)));
-    item.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') abrirLightbox(Number(item.dataset.index));
-    });
+function irSiguiente() {
+  abrirLightbox((indiceActual + 1) % fotos.length);
+}
+
+items.forEach(item => {
+  item.addEventListener('click', () => abrirLightbox(Number(item.dataset.index)));
+
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      abrirLightbox(Number(item.dataset.index));
+    }
   });
+});
 
-  document.getElementById('lb-cerrar').addEventListener('click', cerrarLightbox);
-  document.getElementById('lb-prev').addEventListener('click', irAnterior);
-  document.getElementById('lb-next').addEventListener('click', irSiguiente);
+document.getElementById('lb-cerrar').addEventListener('click', cerrarLightbox);
+document.getElementById('lb-prev').addEventListener('click', irAnterior);
+document.getElementById('lb-next').addEventListener('click', irSiguiente);
 
-  lightbox.addEventListener('click', e => {
-    if (e.target === lightbox) cerrarLightbox();
-  });
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) cerrarLightbox();
+});
 
-  document.addEventListener('keydown', e => {
-    if (!lightbox.classList.contains('activo')) return;
-    if (e.key === 'ArrowLeft')  irAnterior();
-    if (e.key === 'ArrowRight') irSiguiente();
-    if (e.key === 'Escape')     cerrarLightbox();
-  });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('activo')) return;
+
+  if (e.key === 'ArrowLeft') irAnterior();
+  if (e.key === 'ArrowRight') irSiguiente();
+  if (e.key === 'Escape') cerrarLightbox();
+});
 </script>
 
 </body>

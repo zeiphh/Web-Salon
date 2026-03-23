@@ -1,80 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eliminar | La Haciendita</title>
-<link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
-<link rel="stylesheet" href="css/estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar | La Haciendita</title>
+  <link rel="icon" href="imagenes/lahaciendita.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-
 <body>
 
 <header>
-<img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
-
-<nav>
-<ul>
-<li><a href="index.html">Inicio</a></li>
-<li><a href="nosotros.html">Sobre Nosotros</a></li>
-<li><a href="servicios.html">Servicios</a></li>
-<li><a href="galeria.html">Galería</a></li>
-<li><a href="contacto.html">Contacto</a></li>
-<li><a href="alta.html">Alta</a></li>
-<li><a href="modificar.html">Modificar</a></li>
-<li><a href="eliminar.html" class="activo">Eliminar</a></li>
-</ul>
-</nav>
+  <img src="imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
+  <nav>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="nosotros.html">Sobre Nosotros</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="galeria.html">Galería</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+      <li><a href="alta.html">Alta</a></li>
+      <li><a href="modificar.html">Modificar</a></li>
+      <li><a href="eliminar.html" class="activo">Eliminar</a></li>
+    </ul>
+  </nav>
 </header>
 
 <main class="form-main">
+  <h1>Eliminar producto o servicio</h1>
 
-<h1>Eliminar producto o servicio</h1>
+  <div id="msg-exito" class="form-mensaje form-mensaje--ok" style="display:none;">
+    ✔ Registro eliminado correctamente.
+  </div>
 
-<form class="formulario" action="#" method="post">
+  <!-- Diálogo de confirmación (oculto hasta hacer submit) -->
+  <div id="dialogo-confirmar" class="dialogo-confirmar" style="display:none;">
+    <p>⚠️ ¿Confirmas eliminar el registro con ID <strong id="id-a-eliminar"></strong>?</p>
+    <p class="aviso">Esta acción <strong>no se puede deshacer</strong>.</p>
+    <div class="dialogo-botones">
+      <button id="btn-si" class="btn-peligro">Sí, eliminar</button>
+      <button id="btn-no" class="btn-cancelar">Cancelar</button>
+    </div>
+  </div>
 
-<label for="id">ID a eliminar:</label>
-<input type="number" id="id" name="id" min="1" required>
+  <form id="form-eliminar" class="formulario" action="#" method="post" novalidate>
 
-<p class="aviso">
-Esta acción eliminará el registro permanentemente.
-</p>
+    <label for="id">ID a eliminar: <span class="campo-req">*</span></label>
+    <input type="number" id="id" name="id" min="1" placeholder="Ej: 3">
+    <span class="error-msg" id="err-id"></span>
 
-<button type="submit" class="btn-peligro">
-Eliminar
-</button>
+    <p class="aviso">Esta acción eliminará el registro permanentemente.</p>
 
-</form>
+    <button type="submit" class="btn-peligro">Eliminar</button>
 
+  </form>
 </main>
 
 <footer>
-<<<<<<< HEAD
   <div class="footer-contenido">
     <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
+    <p>Morelia, Michoacán, México | Tel: <a href="tel:4431716221">443 171 6221</a></p>
+    <div class="footer-redes">
+      <a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
+    </div>
   </div>
   <p>
-    </a>
     <img src="imagenes/css.png" alt="Validado CSS">
-    </a>
     <img src="imagenes/html.png" alt="Validado HTML">
-</p>
-=======
-<div class="footer-contenido">
-<p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
-<p>Morelia, Michoacán, México | Tel: <a href="tel:4431716221">443 171 6221</a></p>
-
-<div class="footer-redes">
-<a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
-</div>
-
-</div>
->>>>>>> 55ac2ab9dde747770cf97f4fe86eb986289da8a3
+  </p>
 </footer>
 
-<a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank">
-<span>WhatsApp</span>
+<a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank" aria-label="Contáctanos por WhatsApp">
+  <span>WhatsApp</span>
 </a>
+
+<script>
+$(document).ready(function () {
+
+  function validarId() {
+    var v = parseInt($('#id').val());
+    if (isNaN(v) || v < 1) {
+      $('#id').addClass('input-error');
+      $('#err-id').text('Ingresa un ID válido (número mayor a 0).').fadeIn(200);
+      return false;
+    }
+    $('#id').removeClass('input-error');
+    $('#err-id').fadeOut(150);
+    return true;
+  }
+
+  $('#id').on('blur', validarId);
+
+  /* Al enviar: validar y mostrar diálogo de confirmación */
+  $('#form-eliminar').on('submit', function (e) {
+    e.preventDefault();
+    if (!validarId()) {
+      $('button[type="submit"]').addClass('btn-shake');
+      setTimeout(function () { $('button[type="submit"]').removeClass('btn-shake'); }, 500);
+      return;
+    }
+    $('#id-a-eliminar').text($('#id').val());
+    $('#dialogo-confirmar').slideDown(300);
+    $('html, body').animate({ scrollTop: $('#dialogo-confirmar').offset().top - 120 }, 400);
+  });
+
+  /* Confirmar → ocultar form y mostrar éxito */
+  $('#btn-si').on('click', function () {
+    $('#dialogo-confirmar').slideUp(200);
+    $('#form-eliminar').slideUp(300, function () {
+      $('#msg-exito').slideDown(400);
+    });
+  });
+
+  /* Cancelar → cerrar diálogo */
+  $('#btn-no').on('click', function () {
+    $('#dialogo-confirmar').slideUp(250);
+  });
+
+});
+</script>
 
 </body>
 </html>
