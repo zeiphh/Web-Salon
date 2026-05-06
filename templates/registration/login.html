@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión | La Haciendita</title>
+  <link rel="icon" href="/static/imagenes/lahaciendita.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="/static/css/estilos.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<header>
+  <img src="/static/imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
+  <nav>
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/login/" class="activo">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="form-main">
+  <h1>Iniciar sesión</h1>
+
+  {% if form.errors %}
+  <div class="form-mensaje" style="background:rgba(192,57,43,.1);border:2px solid #c0392b;color:#922b21;border-radius:8px;padding:14px 18px;margin-bottom:20px;">
+    ✖ Usuario o contraseña incorrectos. Intenta de nuevo.
+  </div>
+  {% endif %}
+
+  <form id="form-login" method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next }}">
+
+    <label for="id_username">Usuario: <span class="campo-req">*</span></label>
+    <input type="text" id="id_username" name="username" class="form-control" placeholder="tu_usuario" autofocus>
+    <span class="error-msg" id="err-username"></span>
+
+    <label for="id_password">Contraseña: <span class="campo-req">*</span></label>
+    <input type="password" id="id_password" name="password" class="form-control" placeholder="••••••••">
+    <span class="error-msg" id="err-password"></span>
+
+    <button type="submit">Entrar</button>
+    <a href="/registro/" class="btn-cancelar-link">¿No tienes cuenta? Regístrate aquí</a>
+  </form>
+</main>
+
+<footer>
+  <div class="footer-contenido">
+    <p>&copy; 2026 Salón de Eventos La Haciendita.</p>
+  </div>
+</footer>
+
+<script>
+$(document).ready(function () {
+  $('#form-login').on('submit', function (e) {
+    var valido = true;
+    if ($('#id_username').val().trim() === '') {
+      $('#id_username').addClass('input-error');
+      $('#err-username').text('El usuario es obligatorio.').fadeIn(200);
+      valido = false;
+    } else {
+      $('#id_username').removeClass('input-error'); $('#err-username').fadeOut(150);
+    }
+    if ($('#id_password').val() === '') {
+      $('#id_password').addClass('input-error');
+      $('#err-password').text('La contraseña es obligatoria.').fadeIn(200);
+      valido = false;
+    } else {
+      $('#id_password').removeClass('input-error'); $('#err-password').fadeOut(150);
+    }
+    if (!valido) {
+      e.preventDefault();
+      $('button[type="submit"]').addClass('btn-shake');
+      setTimeout(function () { $('button[type="submit"]').removeClass('btn-shake'); }, 500);
+    }
+  });
+});
+</script>
+</body>
+</html>

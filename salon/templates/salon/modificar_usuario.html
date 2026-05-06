@@ -1,0 +1,20 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Modificar Usuario | La Haciendita{% endblock %}
+{% block main_attrs %}class="form-main"{% endblock %}
+
+{% block contenido %}
+<h1>Modificar usuario</h1>
+<p class="tabla-subtitulo">Editando: <strong>{{ usuario.username }}</strong></p>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  <label>Nombre:</label> {{ form.first_name }}
+  <label>Apellido:</label> {{ form.last_name }}
+  <label>Email:</label> {{ form.email }}
+  {% if form.email.errors %}<span class="error-msg" style="display:block;">{{ form.email.errors.0 }}</span>{% endif %}
+  <label>Teléfono:</label> {{ form.telefono }}
+  <label>Rol:</label> {{ form.rol }}
+  <button type="submit">Actualizar</button>
+  <a href="{% url 'lista_usuarios' %}" class="btn-cancelar-link">Cancelar</a>
+</form>
+{% endblock %}

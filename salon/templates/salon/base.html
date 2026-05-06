@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}La Haciendita{% endblock %}</title>
+  <link rel="icon" href="/static/imagenes/lahaciendita.jpeg" type="image/x-icon">
+  <link rel="stylesheet" href="/static/css/estilos.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  {% block head_extra %}{% endblock %}
+</head>
+<body>
+
+<header>
+  <img src="/static/imagenes/lahaciendita.jpeg" alt="Salón La Haciendita">
+  <nav>
+    <ul>
+      <li><a href="{% url 'index' %}"     {% if request.resolver_match.url_name == 'index' %}class="activo"{% endif %}>Inicio</a></li>
+      <li><a href="{% url 'nosotros' %}"  {% if request.resolver_match.url_name == 'nosotros' %}class="activo"{% endif %}>Sobre Nosotros</a></li>
+      <li><a href="{% url 'servicios' %}" {% if request.resolver_match.url_name == 'servicios' %}class="activo"{% endif %}>Servicios</a></li>
+      <li><a href="{% url 'galeria' %}"   {% if request.resolver_match.url_name == 'galeria' %}class="activo"{% endif %}>Galería</a></li>
+      <li><a href="{% url 'contacto' %}"  {% if request.resolver_match.url_name == 'contacto' %}class="activo"{% endif %}>Contacto</a></li>
+      {% if user.is_authenticated %}
+        {% if user.perfil.es_empleado %}
+          <li><a href="{% url 'lista_servicios_admin' %}" {% if 'lista_servicios' in request.resolver_match.url_name %}class="activo"{% endif %}>Panel</a></li>
+        {% endif %}
+        {% if user.perfil.es_admin %}
+          <li><a href="{% url 'lista_usuarios' %}" {% if 'usuario' in request.resolver_match.url_name %}class="activo"{% endif %}>Usuarios</a></li>
+        {% endif %}
+        <li>
+          <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Salir ({{ user.username }})</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'login' %}" {% if request.resolver_match.url_name == 'login' %}class="activo"{% endif %}>Iniciar sesión</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+</header>
+
+{% if messages %}
+<div class="mensajes-sistema">
+  {% for msg in messages %}
+  <div class="mensaje-sistema mensaje-sistema--{{ msg.tags }}">
+    {{ msg }}
+    <button class="cerrar-mensaje" onclick="$(this).parent().fadeOut(300);">&times;</button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<main {% block main_attrs %}{% endblock %}>
+  {% block contenido %}{% endblock %}
+</main>
+
+<footer>
+  <div class="footer-contenido">
+    <p>&copy; 2026 Salón de Eventos La Haciendita. Todos los derechos reservados.</p>
+    <p>Morelia, Michoacán, México | Tel: <a href="tel:4431716221">443 171 6221</a></p>
+    <div class="footer-redes">
+      <a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank">Facebook</a>
+    </div>
+  </div>
+  <p>
+    <img src="/static/imagenes/css.png" alt="Validado CSS">
+    <img src="/static/imagenes/html.png" alt="Validado HTML">
+  </p>
+</footer>
+
+<a href="https://wa.me/524431716220" class="whatsapp-flotante" target="_blank" aria-label="Contáctanos por WhatsApp">
+  <span>WhatsApp</span>
+</a>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

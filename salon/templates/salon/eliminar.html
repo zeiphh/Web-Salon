@@ -1,0 +1,25 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Eliminar | La Haciendita{% endblock %}
+{% block main_attrs %}class="form-main"{% endblock %}
+
+{% block contenido %}
+<h1>Eliminar producto o servicio</h1>
+
+<div class="dialogo-confirmar" style="display:block;">
+  <p>⚠️ ¿Confirmas eliminar el siguiente registro?</p>
+  <table class="tabla-elegante" style="margin:16px 0;">
+    <tr><th>ID</th><td>{{ servicio.id }}</td></tr>
+    <tr><th>Nombre</th><td>{{ servicio.nombre }}</td></tr>
+    <tr><th>Precio</th><td>${{ servicio.precio }}</td></tr>
+    <tr><th>Categoría</th><td>{{ servicio.get_categoria_display }}</td></tr>
+  </table>
+  <p class="aviso">Esta acción <strong>no se puede deshacer</strong>.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="dialogo-botones">
+      <button type="submit" class="btn-peligro">Sí, eliminar</button>
+      <a href="{% url 'lista_servicios_admin' %}" class="btn-cancelar">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

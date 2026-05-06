@@ -1,0 +1,101 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Modificar | La Haciendita{% endblock %}
+{% block main_attrs %}class="form-main"{% endblock %}
+
+{% block contenido %}
+<h1>Modificar producto o servicio</h1>
+<p class="tabla-subtitulo">Editando: <strong>{{ servicio.nombre }}</strong> (ID: {{ servicio.id }})</p>
+
+<form id="form-modificar" method="post" novalidate>
+  {% csrf_token %}
+
+  <label for="id_nombre">Nuevo nombre: <span class="campo-req">*</span></label>
+  {{ form.nombre }}
+  <span id="estado-nombre" class="ajax-estado"></span>
+  {% if form.nombre.errors %}<span class="error-msg" style="display:block;">{{ form.nombre.errors.0 }}</span>{% endif %}
+  <span class="error-msg" id="err-nombre"></span>
+
+  <label for="id_descripcion">Nueva descripción: <span class="campo-req">*</span></label>
+  {{ form.descripcion }}
+  {% if form.descripcion.errors %}<span class="error-msg" style="display:block;">{{ form.descripcion.errors.0 }}</span>{% endif %}
+  <span class="error-msg" id="err-descripcion"></span>
+  <span class="chars-restantes" id="chars-desc">250 caracteres restantes</span>
+
+  <label for="id_precio">Nuevo precio (MXN): <span class="campo-req">*</span></label>
+  {{ form.precio }}
+  {% if form.precio.errors %}<span class="error-msg" style="display:block;">{{ form.precio.errors.0 }}</span>{% endif %}
+  <span class="error-msg" id="err-precio"></span>
+
+  <label for="id_categoria">Categoría:</label>
+  {{ form.categoria }}
+
+  <div class="check-wrapper">
+    {{ form.activo }}
+    <label for="id_activo">Activo</label>
+  </div>
+
+  <button type="submit">Actualizar</button>
+  <a href="{% url 'lista_servicios_admin' %}" class="btn-cancelar-link">Cancelar</a>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+  var servicioId = '{{ servicio.id }}';
+
+  var timer;
+  $('#id_nombre').on('input', function () {
+    clearTimeout(timer);
+    var nombre = $(this).val().trim();
+    $('#estado-nombre').text('').removeClass('ajax-ok ajax-error');
+    if (nombre.length < 3) return;
+    timer = setTimeout(function () {
+      $.get('{% url "ajax_verificar_nombre" %}', { nombre: nombre, excluir_id: servicioId }, function (data) {
+        if (data.disponible) {
+          $('#estado-nombre').text('✔ Disponible').addClass('ajax-ok');
+        } else {
+          $('#estado-nombre').text('✖ Ya existe').addClass('ajax-error');
+        }
+      });
+    }, 400);
+  });
+
+  $('#id_descripcion').on('input', function () {
+    var r = 250 - $(this).val().length;
+    $('#chars-desc').text(r + ' caracteres restantes').toggleClass('chars-agotados', r < 30);
+  });
+
+  function validarNombre() {
+    var v = $('#id_nombre').val().trim();
+    if (v === '' || v.length < 3) return err('nombre', v === '' ? 'Obligatorio.' : 'Mínimo 3 caracteres.');
+    if ($('#estado-nombre').hasClass('ajax-error')) return err('nombre', 'Ese nombre ya existe.');
+    return ok('nombre');
+  }
+  function validarDesc() {
+    var v = $('#id_descripcion').val().trim();
+    if (v === '' || v.length < 10) return err('descripcion', v === '' ? 'Obligatorio.' : 'Mínimo 10 caracteres.');
+    return ok('descripcion');
+  }
+  function validarPrecio() {
+    var v = parseFloat($('#id_precio').val());
+    if (isNaN(v) || v <= 0) return err('precio', isNaN(v) ? 'Obligatorio.' : 'Debe ser mayor a 0.');
+    return ok('precio');
+  }
+  function err(id, msg) { $('#id_'+id).addClass('input-error'); $('#err-'+id).text(msg).fadeIn(200); return false; }
+  function ok(id)        { $('#id_'+id).removeClass('input-error'); $('#err-'+id).fadeOut(150); return true; }
+
+  $('#id_nombre').on('blur', validarNombre);
+  $('#id_descripcion').on('blur', validarDesc);
+  $('#id_precio').on('blur', validarPrecio);
+
+  $('#form-modificar').on('submit', function (e) {
+    if (!(validarNombre() & validarDesc() & validarPrecio())) {
+      e.preventDefault();
+      $('button[type="submit"]').addClass('btn-shake');
+      setTimeout(function () { $('button[type="submit"]').removeClass('btn-shake'); }, 500);
+    }
+  });
+});
+</script>
+{% endblock %}

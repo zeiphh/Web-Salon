@@ -1,0 +1,18 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Eliminar Usuario | La Haciendita{% endblock %}
+{% block main_attrs %}class="form-main"{% endblock %}
+
+{% block contenido %}
+<h1>Eliminar usuario</h1>
+<div class="dialogo-confirmar" style="display:block;">
+  <p>⚠️ ¿Confirmas eliminar al usuario <strong>{{ usuario.username }}</strong>?</p>
+  <p class="aviso">Esta acción <strong>no se puede deshacer</strong>.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div class="dialogo-botones">
+      <button type="submit" class="btn-peligro">Sí, eliminar</button>
+      <a href="{% url 'lista_usuarios' %}" class="btn-cancelar">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

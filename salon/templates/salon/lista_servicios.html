@@ -1,0 +1,39 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Panel de Servicios | La Haciendita{% endblock %}
+
+{% block contenido %}
+<div class="tabla-wrapper" style="padding:40px 0;">
+  <h1 style="font-family:var(--fuente-titulo);font-size:2rem;color:var(--color-primario);text-align:center;margin-bottom:24px;">Panel de Servicios</h1>
+  {% if user.perfil.es_empleado %}
+  <div style="text-align:right;margin-bottom:16px;">
+    <a href="{% url 'alta' %}" class="btn-cta">+ Nuevo servicio</a>
+  </div>
+  {% endif %}
+  <div class="tabla-scroll">
+    <table class="tabla-elegante">
+      <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Activo</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        {% for s in servicios %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.nombre }}</td>
+          <td>{{ s.get_categoria_display }}</td>
+          <td>${{ s.precio }}</td>
+          <td>{{ s.activo|yesno:"Sí,No" }}</td>
+          <td>
+            <a href="{% url 'modificar' s.pk %}" class="btn-tabla-editar">Editar</a>
+            {% if user.perfil.es_admin %}
+            <a href="{% url 'eliminar' s.pk %}" class="btn-tabla-eliminar">Eliminar</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" style="text-align:center;padding:20px;">No hay servicios. <a href="{% url 'alta' %}">Registra el primero</a>.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

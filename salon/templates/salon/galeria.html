@@ -1,0 +1,102 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Galería | La Haciendita{% endblock %}
+{% block main_attrs %}class="galeria-main"{% endblock %}
+
+{% block contenido %}
+<h1>Nuestra Galería</h1>
+<p class="galeria-intro">Conoce nuestro espacio y los momentos especiales que hemos celebrado juntos.</p>
+
+<div class="galeria-grid">
+
+  <figure class="galeria-item" data-index="0" tabindex="0" aria-label="Ver foto 1">
+    <img src="/static/imagenes/1.jpeg" alt="Evento en La Haciendita" loading="lazy">
+    <figcaption>Evento en La Haciendita</figcaption>
+  </figure>
+
+  <figure class="galeria-item" data-index="1" tabindex="0" aria-label="Ver foto 2">
+    <img src="/static/imagenes/2.jpeg" alt="Patio con Inflable" loading="lazy">
+    <figcaption>Patio con Inflable</figcaption>
+  </figure>
+
+  <figure class="galeria-item" data-index="2" tabindex="0" aria-label="Ver foto 3">
+    <img src="/static/imagenes/3.jpeg" alt="Salón La Haciendita" loading="lazy">
+    <figcaption>Salón La Haciendita</figcaption>
+  </figure>
+
+  <figure class="galeria-item" data-index="3" tabindex="0" aria-label="Ver foto 4">
+    <img src="/static/imagenes/4.jpeg" alt="Área de Juegos" loading="lazy">
+    <figcaption>Área de Juegos</figcaption>
+  </figure>
+
+  <figure class="galeria-item" data-index="4" tabindex="0" aria-label="Ver foto 5">
+    <img src="/static/imagenes/5.jpeg" alt="Evento con Decoraciones" loading="lazy">
+    <figcaption>Evento con Decoraciones</figcaption>
+  </figure>
+
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de foto">
+  <button class="lightbox-cerrar" id="lb-cerrar" aria-label="Cerrar">&times;</button>
+  <button class="lightbox-prev" id="lb-prev" aria-label="Foto anterior">&#8249;</button>
+  <div class="lightbox-contenido">
+    <img src="/static/imagenes/1.jpeg" alt="Vista previa" id="lb-imagen">
+    <p class="lightbox-caption" id="lb-caption"></p>
+  </div>
+  <button class="lightbox-next" id="lb-next" aria-label="Siguiente foto">&#8250;</button>
+  <div class="lightbox-contador" id="lb-contador"></div>
+</div>
+
+<div class="galeria-cta">
+  <p>¿Te gustó lo que viste? ¡Reserva tu fecha!</p>
+  <a href="{% url 'contacto' %}" class="btn-cta">Contáctanos</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const items = Array.from(document.querySelectorAll('.galeria-item'));
+const fotos = items.map(item => ({
+  src:     item.querySelector('img').getAttribute('src'),
+  alt:     item.querySelector('img').getAttribute('alt'),
+  caption: item.querySelector('figcaption').textContent
+}));
+const lightbox  = document.getElementById('lightbox');
+const lbImagen  = document.getElementById('lb-imagen');
+const lbCaption = document.getElementById('lb-caption');
+const lbContador = document.getElementById('lb-contador');
+let indiceActual = 0;
+
+function abrirLightbox(index) {
+  indiceActual = index;
+  lbImagen.src = fotos[index].src;
+  lbImagen.alt = fotos[index].alt;
+  lbCaption.textContent = fotos[index].caption;
+  lbContador.textContent = `${index + 1} / ${fotos.length}`;
+  lightbox.classList.add('activo');
+  document.body.style.overflow = 'hidden';
+}
+function cerrarLightbox() {
+  lightbox.classList.remove('activo');
+  document.body.style.overflow = '';
+}
+function irAnterior() { abrirLightbox((indiceActual - 1 + fotos.length) % fotos.length); }
+function irSiguiente() { abrirLightbox((indiceActual + 1) % fotos.length); }
+
+items.forEach(item => {
+  item.addEventListener('click', () => abrirLightbox(Number(item.dataset.index)));
+  item.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') abrirLightbox(Number(item.dataset.index));
+  });
+});
+document.getElementById('lb-cerrar').addEventListener('click', cerrarLightbox);
+document.getElementById('lb-prev').addEventListener('click', irAnterior);
+document.getElementById('lb-next').addEventListener('click', irSiguiente);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) cerrarLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('activo')) return;
+  if (e.key === 'ArrowLeft')  irAnterior();
+  if (e.key === 'ArrowRight') irSiguiente();
+  if (e.key === 'Escape')     cerrarLightbox();
+});
+</script>
+{% endblock %}

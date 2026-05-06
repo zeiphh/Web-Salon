@@ -1,0 +1,92 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Nuevo Usuario | La Haciendita{% endblock %}
+{% block main_attrs %}class="form-main"{% endblock %}
+
+{% block contenido %}
+<h1>Registrar usuario</h1>
+
+<form id="form-usuario" method="post" novalidate>
+  {% csrf_token %}
+
+  <label for="id_username">Nombre de usuario: <span class="campo-req">*</span></label>
+  {{ form.username }}
+  <span id="estado-usuario" class="ajax-estado"></span>
+  {% if form.username.errors %}<span class="error-msg" style="display:block;">{{ form.username.errors.0 }}</span>{% endif %}
+
+  <label for="id_first_name">Nombre:</label>
+  {{ form.first_name }}
+
+  <label for="id_last_name">Apellido:</label>
+  {{ form.last_name }}
+
+  <label for="id_email">Correo electrónico: <span class="campo-req">*</span></label>
+  {{ form.email }}
+  {% if form.email.errors %}<span class="error-msg" style="display:block;">{{ form.email.errors.0 }}</span>{% endif %}
+
+  <label for="id_telefono">Teléfono:</label>
+  {{ form.telefono }}
+
+  <label for="id_rol">Rol: <span class="campo-req">*</span></label>
+  {{ form.rol }}
+
+  <label for="id_password1">Contraseña: <span class="campo-req">*</span>
+    <small style="font-weight:400;color:var(--color-texto-claro);">(mín. 8 caracteres)</small>
+  </label>
+  {{ form.password1 }}
+  {% if form.password1.errors %}<span class="error-msg" style="display:block;">{{ form.password1.errors.0 }}</span>{% endif %}
+
+  <label for="id_password2">Confirmar contraseña: <span class="campo-req">*</span></label>
+  {{ form.password2 }}
+  {% if form.password2.errors %}<span class="error-msg" style="display:block;">{{ form.password2.errors.0 }}</span>{% endif %}
+  <span class="error-msg" id="err-pass"></span>
+
+  <button type="submit">Registrar</button>
+  <a href="{% url 'lista_usuarios' %}" class="btn-cancelar-link">Cancelar</a>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+  // AJAX: verificar username disponible
+  var timer;
+  $('#id_username').on('input', function () {
+    clearTimeout(timer);
+    var u = $(this).val().trim();
+    $('#estado-usuario').text('').removeClass('ajax-ok ajax-error');
+    if (u.length < 3) return;
+    timer = setTimeout(function () {
+      $.get('{% url "ajax_verificar_usuario" %}', { username: u }, function (data) {
+        if (data.disponible) {
+          $('#estado-usuario').text('✔ Disponible').addClass('ajax-ok').removeClass('ajax-error');
+        } else {
+          $('#estado-usuario').text('✖ Ya está en uso').addClass('ajax-error').removeClass('ajax-ok');
+        }
+      });
+    }, 400);
+  });
+
+  // Validar coincidencia de contraseñas
+  $('#id_password2').on('blur', function () {
+    if ($('#id_password1').val() !== $(this).val()) {
+      $(this).addClass('input-error');
+      $('#err-pass').text('Las contraseñas no coinciden.').fadeIn(200);
+    } else {
+      $(this).removeClass('input-error');
+      $('#err-pass').fadeOut(150);
+    }
+  });
+
+  $('#form-usuario').on('submit', function (e) {
+    var parar = false;
+    if ($('#estado-usuario').hasClass('ajax-error')) {
+      alert('El nombre de usuario no está disponible.'); parar = true;
+    }
+    if ($('#id_password1').val() !== $('#id_password2').val()) {
+      $('#err-pass').text('Las contraseñas no coinciden.').show(); parar = true;
+    }
+    if (parar) e.preventDefault();
+  });
+});
+</script>
+{% endblock %}

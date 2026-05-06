@@ -1,0 +1,152 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}La Haciendita{% endblock %}
+
+{% block contenido %}
+<h1>Salón de Eventos La Haciendita</h1>
+
+<p>
+  Un espacio acogedor y elegante para tus celebraciones, con capacidad hasta para 80 personas.
+  Contamos con área de juegos, servicios básicos incluidos y servicios complementarios para tu evento.
+</p>
+<p>
+  Ideal para cumpleaños, reuniones familiares, bautizos, baby showers, eventos sociales, graduaciones
+  y cualquier tipo de evento. Te ofrecemos un espacio cómodo, seguro y totalmente equipado para que
+  solo te preocupes por disfrutar.
+</p>
+
+{% if user.is_authenticated %}
+<p class="sesion-info">Bienvenido, <strong>{{ user.first_name|default:user.username }}</strong>. Has visitado esta página {{ visitas }} vez{{ visitas|pluralize:",es" }}.</p>
+{% endif %}
+
+<!-- PASO 1A: Contadores animados con jQuery — elementos dinámicos -->
+<div class="contadores">
+  <div class="contador-item">
+    <span class="contador-numero" data-objetivo="20">0</span><span class="contador-signo">+</span>
+    <p class="contador-etiqueta">Años de experiencia</p>
+  </div>
+  <div class="contador-item">
+    <span class="contador-numero" data-objetivo="80">0</span><span class="contador-signo"></span>
+    <p class="contador-etiqueta">Personas de capacidad</p>
+  </div>
+  <div class="contador-item">
+    <span class="contador-numero" data-objetivo="500">0</span><span class="contador-signo">+</span>
+    <p class="contador-etiqueta">Eventos realizados</p>
+  </div>
+</div>
+
+<h2>¿Por qué elegirnos?</h2>
+<ul>
+  <li>Amplio espacio</li>
+  <li>Servicios básicos incluidos</li>
+  <li>Ubicación accesible en Morelia, Michoacán</li>
+  <li>Excelente ambiente familiar</li>
+  <li>Excelente atención</li>
+</ul>
+
+<!-- PASO 1B: Tabla dinámica con búsqueda y detalle al clic — datos desde PostgreSQL -->
+<div class="tabla-wrapper">
+  <h2>Servicios disponibles</h2>
+  <p class="tabla-subtitulo">Haz clic en cualquier fila para ver más detalles.</p>
+
+  <div class="tabla-controles">
+    <input type="text" id="buscador" placeholder="Buscar servicio..." class="input-buscar">
+  </div>
+
+  <div class="tabla-scroll">
+    <table id="tabla-servicios" class="tabla-elegante">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Servicio</th>
+          <th>Descripción</th>
+          <th>Precio (MXN)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in servicios %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.nombre }}</td>
+          <td>{{ s.descripcion }}</td>
+          <td>${{ s.precio }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" style="text-align:center;padding:20px;color:#9e6b2e;">No hay servicios registrados aún.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div id="detalle-servicio" class="detalle-servicio" style="display:none;">
+    <button id="cerrar-detalle" class="cerrar-detalle" aria-label="Cerrar detalle">&times;</button>
+    <h3 id="detalle-nombre">Detalle del servicio</h3>
+    <p id="detalle-descripcion"></p>
+    <p class="detalle-precio" id="detalle-precio"></p>
+    <a href="{% url 'contacto' %}" class="btn-cta">Reservar este servicio</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+
+  /* ── 1. CONTADORES ANIMADOS ── */
+  function animarContador($el) {
+    var objetivo = parseInt($el.data('objetivo'));
+    var actual = 0;
+    var paso = Math.ceil(objetivo / (1800 / 16));
+    var timer = setInterval(function () {
+      actual += paso;
+      if (actual >= objetivo) { actual = objetivo; clearInterval(timer); }
+      $el.text(actual);
+    }, 16);
+  }
+  var yaAnimo = false;
+  $(window).on('scroll.contadores', function () {
+    if (yaAnimo) return;
+    var top = $('.contadores').offset().top;
+    if ($(window).scrollTop() + $(window).height() > top + 60) {
+      yaAnimo = true;
+      $('.contador-numero').each(function () { animarContador($(this)); });
+    }
+  }).trigger('scroll.contadores');
+
+  /* ── 2. BUSCADOR EN TIEMPO REAL ── */
+  $('#buscador').on('input', function () {
+    var q = $(this).val().toLowerCase();
+    $('#tabla-servicios tbody tr').each(function () {
+      var visible = $(this).text().toLowerCase().includes(q);
+      $(this).toggle(visible);
+      if (!visible && $(this).hasClass('fila-seleccionada')) {
+        $(this).removeClass('fila-seleccionada');
+        $('#detalle-servicio').slideUp(200);
+      }
+    });
+  });
+
+  /* ── 3. FILAS INTERACTIVAS ── */
+  $('#tabla-servicios tbody tr').on('click', function () {
+    $('#tabla-servicios tbody tr').removeClass('fila-seleccionada');
+    $(this).addClass('fila-seleccionada');
+    var cols = $(this).find('td');
+    $('#detalle-nombre').text(cols.eq(1).text());
+    $('#detalle-descripcion').text(cols.eq(2).text());
+    $('#detalle-precio').text('Precio: ' + cols.eq(3).text());
+    $('#detalle-servicio').slideDown(300);
+  });
+
+  $('#cerrar-detalle').on('click', function () {
+    $('#detalle-servicio').slideUp(250, function () {
+      $('#tabla-servicios tbody tr').removeClass('fila-seleccionada');
+    });
+  });
+
+  /* ── 4. HOVER EN TARJETAS CON jQuery.hover() ── */
+  $('main ul li').hover(
+    function () { $(this).stop(true).animate({ paddingLeft: '52px' }, 150); },
+    function () { $(this).stop(true).animate({ paddingLeft: '44px' }, 150); }
+  );
+});
+</script>
+{% endblock %}

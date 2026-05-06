@@ -1,0 +1,60 @@
+{% extends 'salon/base.html' %}
+{% block titulo %}Contacto | La Haciendita{% endblock %}
+{% block main_attrs %}class="contacto-main"{% endblock %}
+
+{% block contenido %}
+<h1>Contáctanos</h1>
+<p class="contacto-intro">Reserva tu fecha o pide una cotización. Estamos para ayudarte a crear el evento perfecto.</p>
+
+<div class="contacto-layout">
+
+  <div class="contacto-info">
+    <a href="https://wa.me/524431716221" target="_blank" class="contacto-card contacto-card--whatsapp">
+      <div class="contacto-card-texto">
+        <span class="contacto-card-etiqueta">WhatsApp</span>
+        <span class="contacto-card-valor">+52 443 171 6221</span>
+        <span class="contacto-card-accion">Enviar mensaje →</span>
+      </div>
+    </a>
+    <a href="tel:4431716221" class="contacto-card">
+      <div class="contacto-card-texto">
+        <span class="contacto-card-etiqueta">Teléfonos</span>
+        <span class="contacto-card-valor">443 171 6221</span>
+        <span class="contacto-card-valor">443 216 4079</span>
+        <span class="contacto-card-accion">Llamar ahora →</span>
+      </div>
+    </a>
+    <a href="https://www.facebook.com/LaHacienditaMorelia" target="_blank" class="contacto-card">
+      <div class="contacto-card-texto">
+        <span class="contacto-card-etiqueta">Facebook</span>
+        <span class="contacto-card-valor">La Haciendita Morelia</span>
+        <span class="contacto-card-accion">Ver página →</span>
+      </div>
+    </a>
+    <a href="mailto:lahaciendita@gmail.com" class="contacto-card">
+      <div class="contacto-card-texto">
+        <span class="contacto-card-etiqueta">Correo electrónico</span>
+        <span class="contacto-card-valor">lahaciendita@gmail.com</span>
+        <span class="contacto-card-accion">Enviar correo →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="contacto-mapa-wrapper">
+    <div class="mapa-encabezado">
+      <strong>Encuéntranos en Morelia</strong>
+      <p>Michoacán, México</p>
+    </div>
+    <div class="mapa-contenedor">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3755.7806268538484!2d-101.19570802523666!3d19.7219617313772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842d0f00009079a1%3A0x23e7eecabab5d43!2sSalon%20de%20eventos%20La%20Haciendita!5e0!3m2!1ses!2smx!4v1772217728380!5m2!1ses!2smx"
+        style="border:0;" allowfullscreen loading="lazy"
+        title="Ubicación Salón La Haciendita"></iframe>
+    </div>
+    <a href="https://maps.google.com/?q=Salon+de+eventos+La+Haciendita+Morelia" target="_blank" class="mapa-enlace">
+      Abrir en Google Maps →
+    </a>
+  </div>
+
+</div>
+{% endblock %}
