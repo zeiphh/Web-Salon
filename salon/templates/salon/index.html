@@ -15,7 +15,7 @@
 </p>
 
 {% if user.is_authenticated %}
-<p class="sesion-info">Bienvenido, <strong>{{ user.first_name|default:user.username }}</strong>. Has visitado esta página {{ visitas }} vez{{ visitas|pluralize:",es" }}.</p>
+<p class="sesion-info">Bienvenido, <strong>{{ user.first_name|default:user.username }}</strong>. Has visitado esta página {{ visitas }} vec{{ visitas|pluralize:",es" }}.</p>
 {% endif %}
 
 <!-- PASO 1A: Contadores animados con jQuery — elementos dinámicos -->

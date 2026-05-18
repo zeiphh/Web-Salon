@@ -1,10 +1,27 @@
+"""
+Configuración Django — Salón La Haciendita
+Preparado para producción en AWS EC2
+"""
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-haciendita-cambiar-en-produccion-2026'
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+# ── SEGURIDAD ─────────────────────────────────────────────────
+# IMPORTANTE: genera una clave nueva con:
+# python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-haciendita-cambiar-en-produccion-2026')
+
+# En producción cambia a False
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
+# Agrega aquí tu IP pública de EC2 y tu dominio si tienes
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '0.0.0.0',
+    '*',  # Permite cualquier host — útil para la demo
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -14,8 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'salon',
-    'sslserver',
     'django_extensions',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -48,21 +65,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'haciendita_project.wsgi.application'
 
-# ── BASE DE DATOS PostgreSQL ──────────────────────────────────
-# Ejecuta esto en pgAdmin o psql ANTES de correr el proyecto:
-#   CREATE DATABASE haciendita_db;
-#   CREATE USER haciendita_user WITH PASSWORD 'haciendita2026';
-#   GRANT ALL PRIVILEGES ON DATABASE haciendita_db TO haciendita_user;
-#   \c haciendita_db
-#   GRANT ALL ON SCHEMA public TO haciendita_user;
+# ── BASE DE DATOS ─────────────────────────────────────────────
+# Lee variables de entorno — en AWS las configuramos en el servidor
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'haciendita_db',
-        'USER': 'haciendita_user',
-        'PASSWORD': 'haciendita2026',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE':   'django.db.backends.postgresql',
+        'NAME':     os.environ.get('DB_NAME',     'haciendita_db'),
+        'USER':     os.environ.get('DB_USER',     'haciendita_user'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'haciendita2026'),
+        'HOST':     os.environ.get('DB_HOST',     'localhost'),
+        'PORT':     os.environ.get('DB_PORT',     '5432'),
     }
 }
 
@@ -78,8 +90,9 @@ TIME_ZONE = 'America/Mexico_City'
 USE_I18N = True
 USE_TZ = True
 
+# ── ARCHIVOS ESTÁTICOS ────────────────────────────────────────
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Para: python manage.py collectstatic
 
 SESSION_COOKIE_AGE = 3600
 SESSION_COOKIE_HTTPONLY = True
@@ -88,10 +101,5 @@ SESSION_SAVE_EVERY_REQUEST = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
-
-# Descomentar cuando tengas HTTPS:
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
